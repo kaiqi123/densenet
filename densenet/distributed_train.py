@@ -201,7 +201,8 @@ def main(epochs,
          data_dir=None,
          num_gpu=1):
 
-  devices = ['/device:GPU:{}'.format(i) for i in range(1, num_gpu)]
+  # devices = ['/device:GPU:{}'.format(i) for i in range(1, num_gpu)]
+  devices = ['/device:GPU:{}'.format(i) for i in range(num_gpu)]
   strategy = tf.distribute.MirroredStrategy(devices)
 
   train_dataset, test_dataset, _ = utils.create_dataset(buffer_size, batch_size, data_format, data_dir)
