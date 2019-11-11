@@ -175,10 +175,12 @@ def run_main(argv):
   Args:
     argv: argv
   """
+  stime = time.time()
   del argv
   kwargs = utils.flags_dict()
   kwargs.update({'num_gpu': FLAGS.num_gpu})
   main(**kwargs)
+  print("Toatal time: {}".format(time.time() - stime))
 
 
 def main(epochs,
@@ -221,13 +223,10 @@ def main(epochs,
     test_dist_dataset = strategy.experimental_distribute_dataset(test_dataset)
 
     print('Training...')
-    stime = time.time()
-    print(stime)
     if train_mode == 'custom_loop':
       return trainer.custom_loop(train_dist_dataset,
                                  test_dist_dataset,
                                  strategy)
-      print("Toatal time: {}".format(time.time() - stime))
     elif train_mode == 'keras_fit':
       raise ValueError(
           '`tf.distribute.Strategy` does not support subclassed models yet.')
