@@ -25,7 +25,7 @@ from absl import flags
 import densenet
 from densenet import utils
 
-# assert tf.__version__.startswith('2')
+assert tf.__version__.startswith('2')
 
 
 FLAGS = flags.FLAGS

@@ -24,7 +24,7 @@ from __future__ import division
 from __future__ import print_function
 
 import tensorflow as tf # TF2
-# assert tf.__version__.startswith('2')
+assert tf.__version__.startswith('2')
 
 l2 = tf.keras.regularizers.l2
 
