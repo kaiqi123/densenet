@@ -24,6 +24,7 @@ from absl import flags
 
 import densenet
 import utils
+import time
 
 assert tf.__version__.startswith('2')
 
@@ -201,6 +202,8 @@ def main(epochs,
          data_dir=None,
          num_gpu=1):
 
+  stime=time.time()
+
   devices = ['/device:GPU:{}'.format(i) for i in range(1, num_gpu)]
   strategy = tf.distribute.MirroredStrategy(devices)
 
@@ -228,11 +231,9 @@ def main(epochs,
     else:
       raise ValueError(
           'Please enter either "keras_fit" or "custom_loop" as the argument.')
-
+    print("Toatal time: {}".format(time.time()-stime))
+  print("Toatal time: {}".format(time.time()-stime))
 
 if __name__ == '__main__':
-  import time
-  stime=time.time()
   utils.define_densenet_flags()
   app.run(run_main)
-  print("Toatal time: {}".format(time.time()-stime))
