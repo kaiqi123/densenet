@@ -23,7 +23,7 @@ from absl import app
 from absl import flags
 
 import densenet
-from densenet import utils
+import utils
 
 assert tf.__version__.startswith('2')
 
