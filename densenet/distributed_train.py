@@ -29,7 +29,7 @@ assert tf.__version__.startswith('2')
 
 
 FLAGS = flags.FLAGS
-flags.DEFINE_integer('num_gpu', 2, 'Number of GPUs to use')
+flags.DEFINE_integer('num_gpu', 4, 'Number of GPUs to use')
 
 
 class Train(object):
