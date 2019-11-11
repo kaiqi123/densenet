@@ -202,7 +202,7 @@ def main(epochs,
          data_dir=None,
          num_gpu=1):
 
-  stime=time.time()
+
 
   devices = ['/device:GPU:{}'.format(i) for i in range(1, num_gpu)]
   strategy = tf.distribute.MirroredStrategy(devices)
@@ -221,19 +221,19 @@ def main(epochs,
     test_dist_dataset = strategy.experimental_distribute_dataset(test_dataset)
 
     print('Training...')
+    stime = time.time()
+    print(stime)
     if train_mode == 'custom_loop':
       return trainer.custom_loop(train_dist_dataset,
                                  test_dist_dataset,
                                  strategy)
+      print("Toatal time: {}".format(time.time() - stime))
     elif train_mode == 'keras_fit':
       raise ValueError(
           '`tf.distribute.Strategy` does not support subclassed models yet.')
     else:
       raise ValueError(
           'Please enter either "keras_fit" or "custom_loop" as the argument.')
-    print("Toatal time: {}".format(time.time()-stime))
-  print("Toatal time: {}".format(time.time()-stime))
-
 if __name__ == '__main__':
   utils.define_densenet_flags()
   app.run(run_main)
