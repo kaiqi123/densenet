@@ -18,13 +18,13 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import tensorflow as tf # TF2
 from absl import app
 from absl import flags
-import tensorflow as tf # TF2
-# from tensorflow_examples.models.densenet import densenet
-# from tensorflow_examples.models.densenet import utils
+
 import densenet
-import utils
+from densenet import utils
+
 # assert tf.__version__.startswith('2')
 
 
