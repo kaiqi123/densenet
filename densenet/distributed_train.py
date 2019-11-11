@@ -231,5 +231,8 @@ def main(epochs,
 
 
 if __name__ == '__main__':
+  import time
+  stime=time.time()
   utils.define_densenet_flags()
   app.run(run_main)
+  print("Toatal time: {}".format(time.time()-stime))

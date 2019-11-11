@@ -31,7 +31,7 @@ def define_densenet_flags():
   """Defining all the necessary flags."""
   flags.DEFINE_integer('buffer_size', 50000, 'Shuffle buffer size')
   flags.DEFINE_integer('batch_size', 64, 'Batch Size')
-  flags.DEFINE_integer('epochs', 100, 'Number of epochs')
+  flags.DEFINE_integer('epochs', 10, 'Number of epochs')
   flags.DEFINE_boolean('enable_function', True, 'Enable Function?')
   flags.DEFINE_string('data_dir', None, 'Directory to store the dataset')
   flags.DEFINE_string('mode', 'from_depth', 'Deciding how to build the model')
