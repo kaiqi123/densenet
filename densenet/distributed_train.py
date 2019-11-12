@@ -49,8 +49,7 @@ class Train(object):
     self.batch_size = batch_size
     self.enable_function = enable_function
     self.strategy = strategy
-    self.loss_object = tf.keras.losses.SparseCategoricalCrossentropy(
-        from_logits=True, reduction=tf.keras.losses.Reduction.NONE)
+    self.loss_object = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True, reduction=tf.keras.losses.Reduction.NONE)
     self.optimizer = tf.keras.optimizers.SGD(learning_rate=0.1,
                                              momentum=0.9, nesterov=True)
     self.train_acc_metric = tf.keras.metrics.SparseCategoricalAccuracy(
@@ -126,18 +125,15 @@ class Train(object):
       total_loss = 0.0
       num_train_batches = 0.0
       for one_batch in ds:
-        per_replica_loss = strategy.experimental_run_v2(
-            self.train_step, args=(one_batch,))
-        total_loss += strategy.reduce(
-            tf.distribute.ReduceOp.SUM, per_replica_loss, axis=None)
+        per_replica_loss = strategy.experimental_run_v2(self.train_step, args=(one_batch,))
+        total_loss += strategy.reduce(tf.distribute.ReduceOp.SUM, per_replica_loss, axis=None)
         num_train_batches += 1
       return total_loss, num_train_batches
 
     def distributed_test_epoch(ds):
       num_test_batches = 0.0
       for one_batch in ds:
-        strategy.experimental_run_v2(
-            self.test_step, args=(one_batch,))
+        strategy.experimental_run_v2(self.test_step, args=(one_batch,))
         num_test_batches += 1
       return self.test_loss_metric.result(), num_test_batches
 
@@ -203,8 +199,6 @@ def main(epochs,
          train_mode='custom_loop',
          data_dir=None,
          num_gpu=1):
-
-
 
   devices = ['/device:GPU:{}'.format(i) for i in range(1, num_gpu)]
   strategy = tf.distribute.MirroredStrategy(devices)
