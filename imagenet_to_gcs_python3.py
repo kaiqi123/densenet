@@ -330,9 +330,6 @@ def convert_to_tf_records(raw_data_dir):
 
   # Create training data
   tf.logging.info('Processing the training data.')
-  for subdir, dirs, files in os.walk("./imagenet_data/tf_records/train/"):
-    print(subdir, dirs, files)
-
   training_records = _process_dataset(
       training_files, training_synsets, labels,
       os.path.join(FLAGS.local_scratch_dir, TRAINING_DIRECTORY),
