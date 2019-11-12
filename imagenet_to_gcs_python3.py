@@ -286,7 +286,6 @@ def _process_dataset(filenames, synsets, labels, output_directory, prefix, num_s
   coder = ImageCoder()
 
   files = []
-
   for shard in range(num_shards):
     chunk_files = filenames[shard * chunksize : (shard + 1) * chunksize]
     chunk_synsets = synsets[shard * chunksize : (shard + 1) * chunksize]
@@ -331,6 +330,9 @@ def convert_to_tf_records(raw_data_dir):
 
   # Create training data
   tf.logging.info('Processing the training data.')
+  for subdir, dirs, files in os.walk("./imagenet_data/tf_records/train/"):
+    print(subdir, dirs, files)
+
   training_records = _process_dataset(
       training_files, training_synsets, labels,
       os.path.join(FLAGS.local_scratch_dir, TRAINING_DIRECTORY),
