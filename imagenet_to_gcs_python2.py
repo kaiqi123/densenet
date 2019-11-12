@@ -1,3 +1,4 @@
+# python2, tensorflow 1.
 import math
 import os
 import random
@@ -253,19 +254,15 @@ def _process_image_files_batch(coder, output_file, filenames, synsets, labels):
     labels: map of string to integer; id for all synset labels
   """
   writer = tf.python_io.TFRecordWriter(output_file)
-
   for filename, synset in zip(filenames, synsets):
     image_buffer, height, width = _process_image(filename, coder)
     label = labels[synset]
-    example = _convert_to_example(filename, image_buffer, label,
-                                  synset, height, width)
+    example = _convert_to_example(filename, image_buffer, label,synset, height, width)
     writer.write(example.SerializeToString())
-
   writer.close()
 
 
-def _process_dataset(filenames, synsets, labels, output_directory, prefix,
-                     num_shards):
+def _process_dataset(filenames, synsets, labels, output_directory, prefix, num_shards):
   """Processes and saves list of images as TFRecords.
   Args:
     filenames: list of strings; each string is a path to an image file
@@ -286,10 +283,8 @@ def _process_dataset(filenames, synsets, labels, output_directory, prefix,
   for shard in range(num_shards):
     chunk_files = filenames[shard * chunksize : (shard + 1) * chunksize]
     chunk_synsets = synsets[shard * chunksize : (shard + 1) * chunksize]
-    output_file = os.path.join(
-        output_directory, '%s-%.5d-of-%.5d' % (prefix, shard, num_shards))
-    _process_image_files_batch(coder, output_file, chunk_files,
-                               chunk_synsets, labels)
+    output_file = os.path.join(output_directory, '%s-%.5d-of-%.5d' % (prefix, shard, num_shards))
+    _process_image_files_batch(coder, output_file, chunk_files,chunk_synsets, labels)
     tf.logging.info('Finished writing file: %s' % output_file)
     files.append(output_file)
   return files
@@ -319,16 +314,13 @@ def convert_to_tf_records(raw_data_dir):
   training_synsets = [training_synsets[i] for i in training_shuffle_idx]
 
   # Glob all the validation files
-  validation_files = sorted(tf.gfile.Glob(
-      os.path.join(raw_data_dir, VALIDATION_DIRECTORY, '*.JPEG')))
+  validation_files = sorted(tf.gfile.Glob(os.path.join(raw_data_dir, VALIDATION_DIRECTORY, '*.JPEG')))
 
   # Get validation file synset labels from labels.txt
-  validation_synsets = tf.gfile.FastGFile(
-      os.path.join(raw_data_dir, LABELS_FILE), 'r').read().splitlines()
+  validation_synsets = tf.gfile.FastGFile(os.path.join(raw_data_dir, LABELS_FILE), 'r').read().splitlines()
 
   # Create unique ids for all synsets
-  labels = {v: k + 1 for k, v in enumerate(
-      sorted(set(validation_synsets + training_synsets)))}
+  labels = {v: k + 1 for k, v in enumerate(sorted(set(validation_synsets + training_synsets)))}
 
   # Create training data
   tf.logging.info('Processing the training data.')
