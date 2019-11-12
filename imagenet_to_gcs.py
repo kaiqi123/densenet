@@ -8,7 +8,7 @@ from absl import app
 from absl import flags
 import tensorflow as tf
 
-from google.cloud import storage
+# from google.cloud import storage
 
 flags.DEFINE_string('project', None, 'Google cloud project id for uploading the dataset.')
 flags.DEFINE_string('gcs_output_path', None, 'GCS path for uploading the dataset.')
