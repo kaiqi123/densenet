@@ -1,4 +1,10 @@
-# python3, tensorflow 1.
+"""
+python3, tensorflow 1.
+python3 imagenet_to_gcs_python3.py \
+  --raw_data_dir=imagenet_data \
+  --local_scratch_dir=imagenet_data/tf_records \
+  --nogcs_upload
+"""
 import math
 import os
 import random

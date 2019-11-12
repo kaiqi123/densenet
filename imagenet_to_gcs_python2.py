@@ -1,4 +1,10 @@
-# python2, tensorflow 1.
+"""
+python2, tensorflow 1.
+python imagenet_to_gcs.py \
+  --raw_data_dir=/home/users/kaiqi/new_ktResnet/ILSVRC/Data/CLS-LOC \
+  --local_scratch_dir=/home/users/kaiqi/new_ktResnet/ILSVRC/Data/CLS-LOC/tf_records \
+  --nogcs_upload
+"""
 import math
 import os
 import random
