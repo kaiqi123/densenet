@@ -33,6 +33,7 @@ VALIDATION_SHARDS = 128
 TRAINING_DIRECTORY = 'train'
 VALIDATION_DIRECTORY = 'validation'
 
+
 def _check_or_create_dir(directory):
   """Check if directory exists otherwise create it."""
   if not tf.gfile.Exists(directory):
@@ -43,7 +44,7 @@ def download_dataset(raw_data_dir):
   """Download the Imagenet dataset into the temporary directory."""
   def _download(url, filename):
     """Download the dataset at the provided filepath."""
-    urllib.request.urlretrieve(url, filename)
+    urllib.urlretrieve(url, filename)
 
   def _get_members(filename):
     """Get all members of a tarfile."""
@@ -217,7 +218,7 @@ def _process_image(filename, coder):
     width: integer, image width in pixels.
   """
   # Read the image file.
-  with tf.gfile.FastGFile(filename, 'rb') as f:
+  with tf.gfile.FastGFile(filename, 'r') as f:
     image_data = f.read()
 
   # Clean the dirty data.
@@ -302,7 +303,7 @@ def convert_to_tf_records(raw_data_dir):
   random.seed(0)
   def make_shuffle_idx(n):
     order = range(n)
-    random.shuffle(list(order))
+    random.shuffle(order)
     return order
 
   # Glob all the training files
@@ -384,6 +385,7 @@ def main(argv):  # pylint: disable=unused-argument
 
   if FLAGS.gcs_upload and FLAGS.project is None:
     raise ValueError('GCS Project must be provided.')
+
   if FLAGS.gcs_upload and FLAGS.gcs_output_path is None:
     raise ValueError('GCS output path must be provided.')
   elif FLAGS.gcs_upload and not FLAGS.gcs_output_path.startswith('gs://'):
