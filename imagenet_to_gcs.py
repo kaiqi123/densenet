@@ -10,6 +10,8 @@ import tensorflow as tf
 
 from google.cloud import storage
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 flags.DEFINE_string('project', None, 'Google cloud project id for uploading the dataset.')
 flags.DEFINE_string('gcs_output_path', None, 'GCS path for uploading the dataset.')
 flags.DEFINE_string('local_scratch_dir', None, 'Scratch directory path for temporary files.')
@@ -32,7 +34,6 @@ VALIDATION_SHARDS = 128
 
 TRAINING_DIRECTORY = 'train'
 VALIDATION_DIRECTORY = 'validation'
-
 
 def _check_or_create_dir(directory):
   """Check if directory exists otherwise create it."""
