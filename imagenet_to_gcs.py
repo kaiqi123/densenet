@@ -388,6 +388,7 @@ def main(argv):  # pylint: disable=unused-argument
     raise ValueError('GCS output path must be provided.')
   elif FLAGS.gcs_upload and not FLAGS.gcs_output_path.startswith('gs://'):
     raise ValueError('GCS output path must start with gs://')
+
   if FLAGS.local_scratch_dir is None:
     raise ValueError('Scratch directory path must be provided.')
 
