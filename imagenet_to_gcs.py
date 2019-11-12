@@ -10,8 +10,6 @@ import tensorflow as tf
 
 from google.cloud import storage
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
 flags.DEFINE_string('project', None, 'Google cloud project id for uploading the dataset.')
 flags.DEFINE_string('gcs_output_path', None, 'GCS path for uploading the dataset.')
 flags.DEFINE_string('local_scratch_dir', None, 'Scratch directory path for temporary files.')
@@ -45,7 +43,7 @@ def download_dataset(raw_data_dir):
   """Download the Imagenet dataset into the temporary directory."""
   def _download(url, filename):
     """Download the dataset at the provided filepath."""
-    urllib.urlretrieve(url, filename)
+    urllib.request.urlretrieve(url, filename)
 
   def _get_members(filename):
     """Get all members of a tarfile."""
